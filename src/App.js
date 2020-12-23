@@ -1,38 +1,35 @@
 import { Component } from 'react'
-import Button from './components/Button'
 
 class App extends Component {
 
   state = {
-    count: 0
+    name: '',
+    displayName: ''
   }
 
-  handleIncrementCount = () => {
-    this.setState({ count: this.state.count + 1 })
+  handleInputChange = event => {
+    this.setState({ [event.target.name]: event.target.value })
   }
 
-  handleDecrementCount = () => {
-    this.setState({ count: this.state.count - 1 })
-  }
-
-  handleCountReset = () => {
-    this.setState({ count: 0 })
+  handleSubmitName = event => {
+    event.preventDefault()
+    this.setState({ displayName: this.state.name, name: '' })
   }
 
   render () {
     return (
-      <div>
-        <h1>Count: {this.state.count}</h1>
-        <Button
-          label='+' 
-          handleBtnClick={this.handleIncrementCount} />
-        <Button
-          label='-' 
-          handleBtnClick={this.handleDecrementCount} />
-        <Button
-          label='RESET' 
-          handleBtnClick={this.handleCountReset} />
-      </div>
+      <>
+        <h1>Name: {this.state.displayName}</h1>
+        <form>
+          <label htmlFor="name">name</label>
+          <input 
+            type="text" 
+            name="name" 
+            value={this.state.name}
+            onChange={this.handleInputChange} />
+          <button onClick={this.handleSubmitName}>Submit</button>
+        </form>
+      </>
     )
   }
 }
